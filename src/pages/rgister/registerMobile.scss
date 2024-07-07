@@ -92,13 +92,18 @@ html, body {
 
         .register-button {
             width: 50%;
+            height: 40px;
             padding: 10px;
             border: none;
             background-color: rgb(61, 51, 153);
             color: #fff;
             cursor: pointer;
             font-weight: bold;
-            margin-bottom: 50px; /* Add margin bottom for spacing */
+        }
+        .registerButtonContainer{
+            display: flex;
+            justify-content: space-between;     
+            margin-top: 20px;   
         }
 
         a {

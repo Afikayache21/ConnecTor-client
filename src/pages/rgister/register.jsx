@@ -1,10 +1,25 @@
 import React, { useState } from 'react';
+import Select from 'react-select';
 import './registerDesktop.scss';
 import './registerMobile.scss';
 import { Link } from 'react-router-dom';
 
+const workingAreaOptions = [
+    { value: 'area1', label: 'Area 1' },
+    { value: 'area2', label: 'Area 2' },
+    { value: 'area3', label: 'Area 3' },
+];
+
+const userProfessionsOptions = [
+    { value: 'profession1', label: 'Profession 1' },
+    { value: 'profession2', label: 'Profession 2' },
+    { value: 'profession3', label: 'Profession 3' },
+];
+
 export default function Register() {
     const [activeTab, setActiveTab] = useState('customer');
+    const [selectedWorkingArea, setSelectedWorkingArea] = useState(null);
+    const [selectedProfessions, setSelectedProfessions] = useState([]);
 
     return (
         <div className='register'>
@@ -25,7 +40,7 @@ export default function Register() {
             </div>
 
             <div className='register-card'>
-                <h1 >Register</h1>
+                <h1>Register</h1>
 
                 <div className='right-side'>
                     <div className='inputs-form'>
@@ -39,20 +54,31 @@ export default function Register() {
                             <input type="text" placeholder='License Code' />
                             {activeTab === 'constructor' && (
                                 <>
-                                    <input type="checkbox" placeholder='Working area' />
-                                    <input type="checkbox" placeholder='User professions' />
+                                    <Select
+                                        options={workingAreaOptions}
+                                        placeholder="Working area"
+                                        value={selectedWorkingArea}
+                                        onChange={setSelectedWorkingArea}
+                                        isClearable
+                                    />
+                                    <Select
+                                        options={userProfessionsOptions}
+                                        placeholder="User professions"
+                                        value={selectedProfessions}
+                                        onChange={setSelectedProfessions}
+                                        isMulti
+                                    />
                                 </>
                             )}
-                            <input style={{ paddingBottom: '50px' }} type="file" placeholder='Profile picture' />
+                            <input style={{ paddingBottom: '38px' }} type="file" placeholder='Profile picture' />
                         </>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div className='registerButtonContainer'>
                             <Link to='/login'>
                                 <span>Already have an account?</span>
                             </Link>
                             <button className='register-button'>Register</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
