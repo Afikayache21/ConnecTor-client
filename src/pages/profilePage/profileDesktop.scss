@@ -1,0 +1,139 @@
+.user-profile {
+    background: url('public/blue-safety-construction-background-image_6234133.jpg!sw800') no-repeat center center / cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: scroll;
+
+    .header {
+        display: flex;
+        width: 100%;
+        background-color: #f0f0f0;
+        padding: 10px;
+
+        .menu-icon {
+            flex: 1;
+        }
+
+        .social-media-links {
+            flex: 1;
+
+            ul {
+                display: flex;
+                justify-content: space-around;
+                list-style-type: none;
+                padding: 0;
+            }
+        }
+    }
+
+    .profile-picture {
+        flex: 0.5;
+        text-align: start;
+        margin-right: 20px;
+
+        img {
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+        }
+    }
+
+    .user-details {
+        flex: 3;
+        padding: 10px;
+        background-color: #ffe;
+    }
+
+    .top-shelf {
+        .last-projects {
+            flex: 1;
+            padding: 10px;
+            margin: 10px;
+            background-color: #e0e0e0;
+
+            .search-bar {
+                display: flex;
+
+                input {
+                    flex: 1;
+                }
+
+                button {
+                    flex: 0;
+                }
+            }
+
+            .project-list,
+            .user-list {
+                margin-top: 10px;
+
+                .project,
+                .user {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 5px;
+                    background-color: #fff;
+                    margin-bottom: 5px;
+                    border-radius: 5px;
+                }
+            }
+        }
+    }
+
+
+    .main-content {
+        display: flex;
+        width: 100%;
+
+        .price-offers,
+        .new-project,
+        .chats {
+            flex: 1;
+            padding: 10px;
+            margin: 10px;
+            background-color: #e0e0e0;
+
+            .search-bar {
+                display: flex;
+
+                input {
+                    flex: 1;
+                }
+
+                button {
+                    flex: 0;
+                }
+            }
+
+            .project-list,
+            .user-list {
+                margin-top: 10px;
+
+                .project,
+                .user {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 5px;
+                    background-color: #fff;
+                    margin-bottom: 5px;
+                    border-radius: 5px;
+                }
+            }
+        }
+    }
+
+    .footer {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        background-color: #ccc;
+        padding: 10px;
+
+        .footer-item {
+            padding: 5px;
+        }
+    }
+}
