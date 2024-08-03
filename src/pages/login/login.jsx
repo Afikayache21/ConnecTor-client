@@ -14,7 +14,8 @@ export default function login() {
 
 
 
-    const handleLogIn = async () => {
+    const handleLogIn = async (e) => {
+        e.preventDefault();
         try {
             const response = await axios.post(url, {
                 email: email,
@@ -36,18 +37,18 @@ export default function login() {
     return (
         <div className='login'>
             <h1>Login</h1>
-            <div className='login-card'>
+            <form onSubmit={handleLogIn} className='login-card'>
                 <div className='right-side'>
                     <div className='inputs-form'>
                         <input type="text" placeholder='Email' />
                         <input type="password" placeholder='Password' />
-                        <button onClick={handleLogIn}>Login</button>
+                        <button type='submit'>Login</button>
                         <Link to='/register'>
                             <span>Don't have an account?</span>
                         </Link>
                     </div>
                 </div>
-            </div>
+            </form>
 
         </div>
     )
