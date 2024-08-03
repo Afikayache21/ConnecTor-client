@@ -1,54 +1,53 @@
-import { useState } from 'react'
-import './pages/login/mobileLogin.scss'
-import './pages/login/desktopLogin.scss'
+import { useState } from 'react';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import './pages/login/mobileLogin.scss';
+import './pages/login/desktopLogin.scss';
 
-import Login from './pages/login/login.jsx'
-import Register from './pages/rgister/register.jsx'
-import { createBrowserRouter, RouterProvider, Route, Outlet } from 'react-router-dom'
-import Profile from './pages/profilePage/profile.jsx'
-const Layout = (Layout) => {
+import Login from './pages/login/login.jsx';
+import Register from './pages/register/register.jsx';
+import Profile from './pages/profilePage/Profile.jsx';
+import Header from './pages/parts/Header.jsx';
+import Footer from './pages/parts/Footer.jsx';
+
+const Layout = () => {
   return (
-    <div className='layout'>
-      <Outlet/>
+    <div>
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
     </div>
-  )
-}
-const router = createBrowserRouter([{
-  path: '/login',
-  element: <Login />,
-},
-{
-  path: '/register',
-  element: <Register />,
-},
-{
-  path: '/',
-  element: <Layout />,
-  children: [
-    {
-      path: '/profile',
-      element: <Profile/>,
-    },
-  ]
-}
+  );
+};
 
-])
-
+const router = createBrowserRouter([
+  {
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/register',
+    element: <Register />,
+  },
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      {
+        path: 'profile',
+        element: <Profile />,
+      },
+    ],
+  },
+]);
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  const layout = () => {
-    return (<div>
-
-    </div>)
-  }
+  const [count, setCount] = useState(0);
 
   return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  )
+    <RouterProvider router={router} />
+  );
 }
 
-export default App
+export default App;
