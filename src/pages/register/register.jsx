@@ -3,8 +3,8 @@ import Select from 'react-select';
 import './registerDesktop.scss';
 import './registerMobile.scss';
 import { Link } from 'react-router-dom';
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const workingAreaOptions = [
     { value: 'area1', label: 'Area 1' },
@@ -18,8 +18,7 @@ const userProfessionsOptions = [
     { value: 'profession3', label: 'Profession 3' },
 ];
 
-
-const url = 'http://localhost:5000/api/auth/register'
+const url = 'http://localhost:5000/api/auth/register';
 
 export default function Register() {
     const navigate = useNavigate();
@@ -27,44 +26,81 @@ export default function Register() {
     const [selectedWorkingArea, setSelectedWorkingArea] = useState(null);
     const [selectedProfessions, setSelectedProfessions] = useState([]);
     const [user, setUser] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        phoneNumber: '',
-        licenseCode: '',
-        profilePicture: null,
-        
+        FirstName: '',
+        LastName: '',
+        Mail: '',
+        Password: '',
+        PhoneNumber: '',
+        ProfilePicture: null,
+        UserType: {
+            TypeName: activeTab === 'customer' ? 'Customer' : 'Constructor',
+            licenceCode: '',
+            workingArea: '',
+            proffesions: [],
+        },
+        Followers: [],
+        Following: [],
     });
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        try {
-            console.log(user);
 
-            const response = await axios.post(url, user);
+        // Update UserType with selected options
+        const updatedUser = {
+            ...user,
+            UserType: {
+                ...user.UserType,
+                workingArea: selectedWorkingArea ? selectedWorkingArea.value : '',
+                proffesions: selectedProfessions.map(profession => profession.value),
+            },
+        };
+
+        try {
+            const response = await axios.post(url, updatedUser, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
             console.log('Register Successful:', response.data);
-            navigate('/login') // Redirect to home page after successful login
+            navigate('/login'); // Redirect to login page after successful registration
         } catch (error) {
-            alert('Invalid credentials. Please try again.')
-            console.error('Error fetching data:', error);
+            alert('Registration failed. Please try again.');
+            console.error('Error during registration:', error.response.data);
         }
-    }
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setUser({
-            ...user,
-            [name]: value,
-        });
+
+        // Check if the input is part of the UserType object
+        if (name.startsWith("UserType.")) {
+            const key = name.split(".")[1]; // Get the key inside UserType
+            setUser({
+                ...user,
+                UserType: {
+                    ...user.UserType,
+                    [key]: value,
+                },
+            });
+        } else {
+            setUser({
+                ...user,
+                [name]: value,
+            });
+        }
     };
 
     const handleFileChange = (e) => {
-        setUser({
-            ...user,
-            profilePicture: e.target.files[0],
-        });
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setUser({
+                ...user,
+                ProfilePicture: reader.result,
+            });
+        };
+        reader.readAsDataURL(file);
     };
 
     return (
@@ -72,13 +108,31 @@ export default function Register() {
             <div className='tab-bar'>
                 <button
                     className={`tab ${activeTab === 'customer' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('customer')}
+                    onClick={() => {
+                        setActiveTab('customer');
+                        setUser({
+                            ...user,
+                            UserType: {
+                                ...user.UserType,
+                                TypeName: "Customer"
+                            }
+                        });
+                    }}
                 >
                     I'm a customer
                 </button>
                 <button
                     className={`tab ${activeTab === 'constructor' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('constructor')}
+                    onClick={() => {
+                        setActiveTab('constructor');
+                        setUser({
+                            ...user,
+                            UserType: {
+                                ...user.UserType,
+                                TypeName: "Constructor"
+                            }
+                        });
+                    }}
                 >
                     I'm a constructor
                 </button>
@@ -92,36 +146,36 @@ export default function Register() {
                         <input
                             type="text"
                             placeholder='First name'
-                            name="firstName"
-                            value={user.firstName}
+                            name="FirstName"
+                            value={user.FirstName}
                             onChange={handleInputChange}
                         />
                         <input
                             type="text"
                             placeholder='Last name'
-                            name="lastName"
-                            value={user.lastName}
+                            name="LastName"
+                            value={user.LastName}
                             onChange={handleInputChange}
                         />
                         <input
-                            type="text"
+                            type="email"
                             placeholder='Email'
-                            name="email"
-                            value={user.email}
+                            name="Mail"
+                            value={user.Mail}
                             onChange={handleInputChange}
                         />
                         <input
                             type="password"
                             placeholder='Password'
-                            name="password"
-                            value={user.password}
+                            name="Password"
+                            value={user.Password}
                             onChange={handleInputChange}
                         />
                         <input
                             type="text"
                             placeholder='Phone number'
-                            name="phoneNumber"
-                            value={user.phoneNumber}
+                            name="PhoneNumber"
+                            value={user.PhoneNumber}
                             onChange={handleInputChange}
                         />
                         {activeTab === 'constructor' && (
@@ -129,8 +183,8 @@ export default function Register() {
                                 <input
                                     type="text"
                                     placeholder='License Code'
-                                    name="licenseCode"
-                                    value={user.licenseCode}
+                                    name="UserType.licenceCode"
+                                    value={user.UserType.licenceCode}
                                     onChange={handleInputChange}
                                 />
                                 <Select
