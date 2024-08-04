@@ -3,6 +3,8 @@ import Select from 'react-select';
 import './registerDesktop.scss';
 import './registerMobile.scss';
 import { Link } from 'react-router-dom';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const workingAreaOptions = [
     { value: 'area1', label: 'Area 1' },
@@ -16,14 +18,57 @@ const userProfessionsOptions = [
     { value: 'profession3', label: 'Profession 3' },
 ];
 
+
+const url = 'http://localhost:5000/api/auth/register'
+
 export default function Register() {
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('customer');
     const [selectedWorkingArea, setSelectedWorkingArea] = useState(null);
     const [selectedProfessions, setSelectedProfessions] = useState([]);
+    const [user, setUser] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        phoneNumber: '',
+        licenseCode: '',
+        profilePicture: null,
+        
+    });
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        try {
+            console.log(user);
+
+            const response = await axios.post(url, user);
+
+            console.log('Register Successful:', response.data);
+            navigate('/login') // Redirect to home page after successful login
+        } catch (error) {
+            alert('Invalid credentials. Please try again.')
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setUser({
+            ...user,
+            [name]: value,
+        });
+    };
+
+    const handleFileChange = (e) => {
+        setUser({
+            ...user,
+            profilePicture: e.target.files[0],
+        });
+    };
 
     return (
         <div className='register'>
-            {/* Tab bar */}
             <div className='tab-bar'>
                 <button
                     className={`tab ${activeTab === 'customer' ? 'active' : ''}`}
@@ -44,40 +89,77 @@ export default function Register() {
 
                 <div className='right-side'>
                     <div className='inputs-form'>
-                        {/* Conditional rendering based on active tab */}
-                        <>
-                            <input type="text" placeholder='First name' />
-                            <input type="text" placeholder='Last name' />
-                            <input type="text" placeholder='Email' />
-                            <input type="password" placeholder='Password' />
-                            <input type="text" placeholder='Phone number' />
-                            <input type="text" placeholder='License Code' />
-                            {activeTab === 'constructor' && (
-                                <>
-                                    <Select
-                                        options={workingAreaOptions}
-                                        placeholder="Working area"
-                                        value={selectedWorkingArea}
-                                        onChange={setSelectedWorkingArea}
-                                        isClearable
-                                    />
-                                    <Select
-                                        options={userProfessionsOptions}
-                                        placeholder="User professions"
-                                        value={selectedProfessions}
-                                        onChange={setSelectedProfessions}
-                                        isMulti
-                                    />
-                                </>
-                            )}
-                            <input style={{ paddingBottom: '38px' }} type="file" placeholder='Profile picture' />
-                        </>
-                        <div className='registerButtonContainer'>
-                            <Link to='/login'>
-                                <span>Already have an account?</span>
-                            </Link>
-                            <button className='register-button'>Register</button>
-                        </div>
+                        <input
+                            type="text"
+                            placeholder='First name'
+                            name="firstName"
+                            value={user.firstName}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            type="text"
+                            placeholder='Last name'
+                            name="lastName"
+                            value={user.lastName}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            type="text"
+                            placeholder='Email'
+                            name="email"
+                            value={user.email}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            type="password"
+                            placeholder='Password'
+                            name="password"
+                            value={user.password}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            type="text"
+                            placeholder='Phone number'
+                            name="phoneNumber"
+                            value={user.phoneNumber}
+                            onChange={handleInputChange}
+                        />
+                        {activeTab === 'constructor' && (
+                            <>
+                                <input
+                                    type="text"
+                                    placeholder='License Code'
+                                    name="licenseCode"
+                                    value={user.licenseCode}
+                                    onChange={handleInputChange}
+                                />
+                                <Select
+                                    options={workingAreaOptions}
+                                    placeholder="Working area"
+                                    value={selectedWorkingArea}
+                                    onChange={setSelectedWorkingArea}
+                                    isClearable
+                                />
+                                <Select
+                                    options={userProfessionsOptions}
+                                    placeholder="User professions"
+                                    value={selectedProfessions}
+                                    onChange={setSelectedProfessions}
+                                    isMulti
+                                />
+                            </>
+                        )}
+                        <input
+                            type="file"
+                            placeholder='Profile picture'
+                            onChange={handleFileChange}
+                        />
+                    </div>
+                    <div className='registerButtonContainer'>
+                        <Link to='/login'>
+                            <span>Already have an account?</span>
+                        </Link>
+                        <button onClick={handleRegister} className='register-button'>Register</button>
                     </div>
                 </div>
             </div>

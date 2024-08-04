@@ -3,16 +3,19 @@ import './mobileLogin.scss'
 import './desktopLogin.scss'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-
+import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom'
+import userStore from '../../DataStore/UserStore.js';
+
+
+
 
 const url = 'http://localhost:5000/api/auth/login'
 
 
-export default function login() {
+ const Login = observer(() => {
     const navigate = useNavigate();
     const [user, setUser] = useState({ email: '', password: '' });
-
 
     const handleLogIn = async (e) => {
         e.preventDefault();
@@ -25,6 +28,7 @@ export default function login() {
             });
             localStorage.setItem('token', response.data.token);
             console.log('Login Successful:', response.data, 'token', response.data.token);
+            userStore.setMail(user.email);
             navigate('/') // Redirect to home page after successful login
         } catch (error) {
             alert('Invalid credentials. Please try again.')
@@ -58,4 +62,5 @@ export default function login() {
 
         </div>
     )
-}
+})
+export default Login
