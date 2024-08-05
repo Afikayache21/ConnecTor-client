@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 
 class UserStore {
-  mail = '';
+  mail;
  
 
   constructor() {

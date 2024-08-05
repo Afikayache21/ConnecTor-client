@@ -5,7 +5,7 @@ import './registerMobile.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { validateEmail, validatePassword } from '../../Services/Helpers/RegexHelper';
 const workingAreaOptions = [
     { value: 'area1', label: 'Area 1' },
     { value: 'area2', label: 'Area 2' },
@@ -83,7 +83,18 @@ export default function Register() {
                     [key]: value,
                 },
             });
-        } else {
+        } 
+        else if (name == 'password') {
+            if (!validatePassword(value)) {
+                alert('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+            }
+        }
+        else if (name == 'mail') {
+            if (!validateEmail(value)) {
+                alert('Please enter a valid email address.');
+            }
+        }
+         else {
             setUser({
                 ...user,
                 [name]: value,
