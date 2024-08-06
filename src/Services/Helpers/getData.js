@@ -23,10 +23,13 @@ const getProfessions = async () => {
 }
 
 const data = await getProfessions()
-const getProfessionsString =  data.map(op => op._id)
+const getProfessionsString = data.map(op => ({
+    value: op._id,
+    label: op.profession
+}));
 
 console.log(getProfessionsString);
 
 
 //exports
-export { getProfessions ,getProfessionsString} 
+export { getProfessions ,getProfessionsString}
