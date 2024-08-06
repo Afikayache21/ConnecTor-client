@@ -6,17 +6,15 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { validateEmail, validatePassword } from '../../Services/Helpers/RegexHelper';
+import {getProfessionsString} from '../../Services/Helpers/getData'
+
+
 const workingAreaOptions = [
     { value: 'area1', label: 'Area 1' },
     { value: 'area2', label: 'Area 2' },
     { value: 'area3', label: 'Area 3' },
 ];
 
-const userProfessionsOptions = [
-    { value: 'profession1', label: 'Profession 1' },
-    { value: 'profession2', label: 'Profession 2' },
-    { value: 'profession3', label: 'Profession 3' },
-];
 
 const url = 'http://localhost:5000/api/auth/register';
 
@@ -50,14 +48,10 @@ export default function Register() {
             alert('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
             return;
         }
-
-
         if (!validateEmail(user.Mail)) {
             alert('Please enter a valid email address.');
             return;
         }
-
-
         // Update UserType with selected options
         const updatedUser = {
             ...user,
@@ -67,7 +61,6 @@ export default function Register() {
                 proffesions: selectedProfessions.map(profession => profession.value),
             },
         };
-
         try {
             const response = await axios.post(url, updatedUser, {
                 headers: {
@@ -77,7 +70,8 @@ export default function Register() {
 
             console.log('Register Successful:', response.data);
             navigate('/login'); // Redirect to login page after successful registration
-        } catch (error) {
+        } 
+        catch (error) {
             alert('Registration failed. Please try again.');
             console.error('Error during registration:', error.response.data);
         }
@@ -217,7 +211,7 @@ export default function Register() {
                                     isClearable
                                 />
                                 <Select
-                                    options={userProfessionsOptions}
+                                    options={getProfessionsString}
                                     placeholder="User professions"
                                     value={selectedProfessions}
                                     onChange={setSelectedProfessions}
