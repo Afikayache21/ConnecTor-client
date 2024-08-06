@@ -83,18 +83,18 @@ export default function Register() {
                     [key]: value,
                 },
             });
-        } 
-        else if (name == 'password') {
+        }
+        else if (name == 'Password') {
             if (!validatePassword(value)) {
                 alert('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
             }
         }
-        else if (name == 'mail') {
+        else if (name == 'Mail') {
             if (!validateEmail(value)) {
                 alert('Please enter a valid email address.');
             }
         }
-         else {
+        else {
             setUser({
                 ...user,
                 [name]: value,
