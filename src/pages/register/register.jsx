@@ -30,6 +30,7 @@ export default function Register() {
         LastName: '',
         Mail: '',
         Password: '',
+        RepeatPassword: '',
         PhoneNumber: '',
         ProfilePicture: null,
         UserType: {
@@ -180,6 +181,13 @@ export default function Register() {
                             placeholder='Password'
                             name="Password"
                             value={user.Password}
+                            onChange={handleInputChange}
+                        />
+                                                <input
+                            type="password"
+                            placeholder='Repeat Password'
+                            name="RepeatPassword"
+                            value={user.RepeatPassword}
                             onChange={handleInputChange}
                         />
                         <input
