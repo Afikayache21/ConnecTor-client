@@ -10,8 +10,8 @@ import './profileDesktop.scss';
 
 export default function Profile() {
     return (
-<div style={{ direction: 'rtl' }} className='user-profile'>
-<Header/>
+<div  className='user-profile'>
+    <p>hello world</p>
 </div>
 
 
