@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import userStore from './Services/DataStore/UserStore.js';
 import Login from './pages/login/login.jsx';
 import Register from './pages/register/register.jsx';
-import Profile from './pages/profilePage/profile.jsx';
+import Profile from './pages/profilePage/Profile.jsx';
 import Header from './pages/parts/Header.jsx';
 import Footer from './pages/parts/Footer.jsx';
 const Layout = () => {
