@@ -46,6 +46,18 @@ export default function Register() {
     const handleRegister = async (e) => {
         e.preventDefault();
 
+        if (!validatePassword(user.Password)) {
+            alert('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+            return;
+        }
+
+
+        if (!validateEmail(user.Mail)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+
+
         // Update UserType with selected options
         const updatedUser = {
             ...user,
@@ -85,16 +97,7 @@ export default function Register() {
                 },
             });
         }
-        else if (name == 'Password') {
-            if (!validatePassword(value)) {
-                alert('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
-            }
-        }
-        else if (name == 'Mail') {
-            if (!validateEmail(value)) {
-                alert('Please enter a valid email address.');
-            }
-        }
+
         else {
             setUser({
                 ...user,
@@ -183,7 +186,7 @@ export default function Register() {
                             value={user.Password}
                             onChange={handleInputChange}
                         />
-                                                <input
+                        <input
                             type="password"
                             placeholder='Repeat Password'
                             name="RepeatPassword"
