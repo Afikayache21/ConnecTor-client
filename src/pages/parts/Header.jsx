@@ -1,5 +1,6 @@
 import React from 'react';
-import '../profilePage/profileDesktop.scss';
+import '../parts/header.scss'
+// import '../profilePage/profileDesktop.scss';
 
 
 

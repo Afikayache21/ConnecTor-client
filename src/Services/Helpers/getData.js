@@ -17,12 +17,12 @@ const getProfessions = async () => {
         console.log('Data fetched Successfuly:', response.data);
         return response.data;
     } catch (error) {
-        alert('Data fetched failed. Please try again.');
-        console.error('Error during Data fetched:', error.response.data);
+        // alert('Data fetched failed. Please try again.');
+         console.error('Error during Data fetched:', error.response.data);
     }
 }
 
-const data = await getProfessions()
+const data = await getProfessions();
 const getProfessionsString = data.map(op => ({
     value: op._id,
     label: op.profession

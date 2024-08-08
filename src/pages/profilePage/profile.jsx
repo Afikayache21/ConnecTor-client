@@ -1,34 +1,40 @@
 import React from 'react';
-import Header from '../parts/Header.jsx';
-// import Footer from '../parts/Footer.jsx';
-// import UserDetails from '../parts/UserDetails.jsx';
-// import NotificationsBox from '../parts/NotificationsBox.jsx';
-// import PriceOffers from '../parts/BidsBox.jsx';
-// import NewProject from '../parts/ProjectsBox.jsx';
-// import ChatsBox from '../parts/ChatsBox.jsx';
 import './profileDesktop.scss';
+import { observer } from 'mobx-react-lite';
+import userStore from '../../Services/DataStore/UserStore.js';
 
-export default function Profile() {
-    return (
-<div style={{ direction: 'rtl' }} className='user-profile'>
-<Header/>
-</div>
+const Profile = observer(() => {
+    if (!userStore.type) {
+        return (
+            <div >
+                <p>י�� להתחבר כדי לצפות בפרו��י��</p>
+            </div>
+        )
+    }
+    else if (userStore.type == 'Customer') {
+        return (
+            <div style={{ direction: 'rtl' }} className='user-profile'>
+                <div className='userDetails'>
+                    <p>user deatils</p>
+                </div>
+                <div className='userProjects'>
+                    user deatils
+                </div>
+            </div>
+        );
+    }
+    else if (userStore.type == 'Constructor') {
+        return (
+            <div style={{ direction: 'rtl' }} className='user-profile'>
+                <div className='userDetails'>
+                    user deatils
+                </div>
+                <div className='userProjects'>
+                    user deatils
+                </div>
+            </div>
+        );
 
+    }});
 
-
-
-        // <div style={{ direction: 'rtl' }} className='user-profile'>
-        //     <Header />
-        //     <div className='top-shelf'>
-        //         {/* <UserDetails /> */}
-        //         {/* <NotificationsBox /> */}
-        //     </div>
-        //     <main className='main-content'>
-        //         <PriceOffers />
-        //         <NewProject />
-        //         {/* <ChatsBox /> */}
-        //     </main>
-        //     <Footer />
-        // </div>
-    );
-}
+export default Profile;

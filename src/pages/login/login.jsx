@@ -29,7 +29,8 @@ const url = 'http://localhost:5000/api/auth/login'
             localStorage.setItem('token', response.data.token);
             console.log('Login Successful:', response.data, 'token', response.data.token);
             userStore.setMail(user.email);
-            navigate('/') // Redirect to home page after successful login
+            userStore.SetType();
+            navigate('/profile') // Redirect to home page after successful login
         } catch (error) {
             alert('Invalid credentials. Please try again.')
             console.error('Error fetching data:', error);

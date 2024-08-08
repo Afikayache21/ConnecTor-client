@@ -21,7 +21,7 @@ const Layout = () => {
   return (
     <div>
       <Header />
-      <main>
+      <main style={{height:'86vh'}}>
         <Outlet />
       </main>
       <Footer />

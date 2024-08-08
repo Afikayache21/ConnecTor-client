@@ -1,5 +1,5 @@
 import React from 'react';
-import '../profilePage/profileDesktop.scss';
+import '../parts/footer.scss';
 
 export default function Footer() {
     return (
