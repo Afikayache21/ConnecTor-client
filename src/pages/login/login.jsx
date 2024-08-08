@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
-import './mobileLogin.scss'
-import './desktopLogin.scss'
+import './loginMobile.scss'
+import './loginDesktop.scss'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { observer } from 'mobx-react-lite';
@@ -13,35 +13,37 @@ import userStore from '../../Services/DataStore/UserStore';
 const url = 'http://localhost:5000/api/auth/login'
 
 
- const Login = observer(() => {
+const Login = observer(() => {
     const navigate = useNavigate();
     const [user, setUser] = useState({ email: '', password: '' });
 
     const handleLogIn = async (e) => {
         e.preventDefault();
         try {
-            console.log(user);
-
-            const response = await axios.post(url, {
-                Mail: user.email,
-                Password: user.password
-            });
-            localStorage.setItem('token', response.data.token);
-            console.log('Login Successful:', response.data, 'token', response.data.token);
-            userStore.setMail(user.email);
-            userStore.SetType();
-            navigate('/profile') // Redirect to home page after successful login
+        console.log(user);
+    
+        const response = await axios.post(url, {
+            Mail: user.email,
+            Password: user.password
+        });
+    
+        localStorage.setItem('token', response.data.token);
+        console.log('Login Successful:', response.data, 'token', response.data.token);
+    
+          // Set user data in the userStore
+        userStore.setData(response.data);
+    
+          navigate('/profile'); // Redirect to profile page after successful login
         } catch (error) {
-            alert('Invalid credentials. Please try again.')
-            console.error('Error fetching data:', error);
+        alert('Invalid credentials. Please try again.');
+        console.error('Error fetching data:', error);
         }
-
-
+    
         // Call your login API here
         console.log('Logging in...');
         // Redirect to home page after successful login
     }
-
+    
     const handleChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value })
     }

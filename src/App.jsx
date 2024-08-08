@@ -1,7 +1,7 @@
 import { useState ,useEffect } from 'react';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import './pages/login/mobileLogin.scss';
-import './pages/login/desktopLogin.scss';
+import './pages/login/loginMobile.scss';
+import './pages/login/loginDesktop.scss';
 import { useNavigate } from 'react-router-dom';
 import userStore from './Services/DataStore/UserStore.js';
 import Login from './pages/login/login.jsx';

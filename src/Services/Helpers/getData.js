@@ -18,7 +18,7 @@ const getProfessions = async () => {
         return response.data;
     } catch (error) {
         // alert('Data fetched failed. Please try again.');
-         console.error('Error during Data fetched:', error.response.data);
+        console.error('Error during Data fetched:', error.response.data);
     }
 }
 
