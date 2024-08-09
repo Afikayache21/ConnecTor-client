@@ -17,7 +17,9 @@ class ProjectsStore {
         this.isLoading = true;
         this.error = null;
         try {
-            const response = await axios.get(`${projectsControllerUrl}/${userId}`);
+            const response = await axios.get(`${projectsControllerUrl}/user/${userId}`);
+            console.log(response);
+            
             this.projects = response.data;
         } catch (error) {
             this.error = 'Failed to fetch projects. Please try again later.';
