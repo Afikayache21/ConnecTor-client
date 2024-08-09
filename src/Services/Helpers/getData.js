@@ -14,7 +14,7 @@ const getProfessions = async () => {
             },
         });
 
-        console.log('Data fetched Successfuly:', response.data);
+   //     console.log('Data fetched Successfuly:', response.data);
         return response.data;
     } catch (error) {
         // alert('Data fetched failed. Please try again.');
@@ -28,7 +28,7 @@ const getProfessionsString = data.map(op => ({
     label: op.profession
 }));
 
-console.log(getProfessionsString);
+//console.log(getProfessionsString);
 
 
 //exports
