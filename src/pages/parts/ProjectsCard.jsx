@@ -2,13 +2,15 @@ import React from 'react'
 import { observer } from 'mobx-react-lite';
 import projectStore from '../../Services/DataStore/ProjectsStore';
 import { useEffect } from'react';
+import userStore from '../../Services/DataStore/UserStore';
 
-// This component fetches projects for a given user when it mounts.
+
 const ProjectsCard = observer(() => {
-  useEffect(() => {
-    const userId = 'someUserId'; // Replace with actual userId
+    
+    useEffect(() => {
+    const userId = userStore.id;
     projectStore.fetchProjects(userId);
-}, []);
+    }, []);
 
 if (projectStore.isLoading) return <div>Loading...</div>;
 if (projectStore.error) return <div>{projectStore.error}</div>;
