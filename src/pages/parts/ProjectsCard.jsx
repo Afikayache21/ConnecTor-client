@@ -6,7 +6,7 @@ import userStore from '../../Services/DataStore/UserStore';
 
 
 const ProjectsCard = observer(() => {
-    
+
     useEffect(() => {
     const userId = userStore.id;
     projectStore.fetchProjects(userId);
@@ -22,7 +22,12 @@ return (
         ) : (
             <ul>
                 {projectStore.projects.map(project => (
-                    <li key={project._id}>{project.ProjectName}</li>
+                    <li key={project._id}>
+                        <h3>{project.ProjectName}</h3>
+                        <p><strong>Entrepreneur ID:</strong> {project.EntrepreneurID}</p>
+                        <p><strong>Project Description:</strong> {project.ProjectDescription}</p>
+                        <p><strong>Project Address:</strong> {project.ProjectAdress}</p>
+                    </li>
                 ))}
             </ul>
         )}
